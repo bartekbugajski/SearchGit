@@ -7,9 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "User.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UISearchControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating>
 
+@property (nonatomic, weak) IBOutlet UITableView * tableView;
+@property (nonatomic, strong) UISearchController * searchController;
+@property (nonatomic, strong) NSMutableArray * allItems;
+@property (nonatomic, strong) NSMutableArray * filteredItems;
+@property (nonatomic, weak) NSArray * displayedItems;
+@property (nonatomic) NSMutableArray<User *> *usernames;
 
 @end
+
 

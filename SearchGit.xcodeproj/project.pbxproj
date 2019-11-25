@@ -14,6 +14,7 @@
 		E3F00284238C152700CCF245 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3F00283238C152700CCF245 /* Assets.xcassets */; };
 		E3F00287238C152700CCF245 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3F00285238C152700CCF245 /* LaunchScreen.storyboard */; };
 		E3F0028A238C152700CCF245 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E3F00289238C152700CCF245 /* main.m */; };
+		E3F00292238C1B5E00CCF245 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = E3F00290238C1B5E00CCF245 /* User.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,8 @@
 		E3F00286238C152700CCF245 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E3F00288238C152700CCF245 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E3F00289238C152700CCF245 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E3F00290238C1B5E00CCF245 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		E3F00291238C1B5E00CCF245 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +70,8 @@
 				E3F0027B238C152200CCF245 /* SceneDelegate.m */,
 				E3F0027D238C152200CCF245 /* ViewController.h */,
 				E3F0027E238C152300CCF245 /* ViewController.m */,
+				E3F00291238C1B5E00CCF245 /* User.h */,
+				E3F00290238C1B5E00CCF245 /* User.m */,
 				E3F00280238C152300CCF245 /* Main.storyboard */,
 				E3F00283238C152700CCF245 /* Assets.xcassets */,
 				E3F00285238C152700CCF245 /* LaunchScreen.storyboard */,
@@ -146,6 +151,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3F00292238C1B5E00CCF245 /* User.m in Sources */,
 				E3F0027F238C152300CCF245 /* ViewController.m in Sources */,
 				E3F00279238C152200CCF245 /* AppDelegate.m in Sources */,
 				E3F0028A238C152700CCF245 /* main.m in Sources */,
