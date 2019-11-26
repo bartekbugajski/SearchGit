@@ -60,7 +60,7 @@
 
 - (void)fetchUsersUsingJSON {
     NSLog(@"Fetching usernames");
-    NSString *urlString = @"https://api.github.com/users?per_page=300";
+    NSString *urlString = @"https://api.github.com/users?per_page=400";
     NSURL *url = [NSURL URLWithString:urlString];
     [[NSURLSession.sharedSession dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSLog(@"Usernames fetching finished.");
