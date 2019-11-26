@@ -23,28 +23,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    // Create a list of fruit to display in the table view.
-    
-    /*
-    self.allItems = [[NSMutableArray alloc] init];
-    [self.allItems addObject:@"Apples"];
-    [self.allItems addObject:@"Oranges"];
-    [self.allItems addObject:@"Pears"];
-    [self.allItems addObject:@"Grapes"];
-    [self.allItems addObject:@"Grapefruits"];
-    [self.allItems addObject:@"Lemons"];
-    [self.allItems addObject:@"Peaches"];
-    [self.allItems addObject:@"Pineapples"];
-    [self.allItems addObject:@"Cherries"];
-    [self.allItems addObject:@"Bananas"];
-    [self.allItems addObject:@"Watermelons"];
-    [self.allItems addObject:@"Cantaloupes"];
-    [self.allItems addObject:@"Limes"];
-    [self.allItems addObject:@"Strawberries"];
-    [self.allItems addObject:@"Blueberries"];
-    [self.allItems addObject:@"Raspberries"];
-    */
     
     
     [self fetchUsersUsingJSON];
@@ -60,6 +38,11 @@
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.searchController.searchResultsUpdater = self;
     self.searchController.searchBar.delegate = self;
+   
+    self.searchController.obscuresBackgroundDuringPresentation = false;
+    self.searchController.searchBar.placeholder = @"Search usernames";
+    //self.navigationItem.searchController = searchController;
+    self.definesPresentationContext = true;
     
     [self.searchController.searchBar sizeToFit];
     
@@ -67,7 +50,7 @@
     self.tableView.tableHeaderView = self.searchController.searchBar;
     
     // Hides search bar initially.  When the user pulls down on the list, the search bar is revealed.
-    [self.tableView setContentOffset:CGPointMake(0, self.searchController.searchBar.frame.size.height)];
+    //[self.tableView setContentOffset:CGPointMake(0, self.searchController.searchBar.frame.size.height)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -77,7 +60,7 @@
 
 - (void)fetchUsersUsingJSON {
     NSLog(@"Fetching usernames");
-    NSString *urlString = @"https://api.github.com/users?q=";
+    NSString *urlString = @"https://api.github.com/users?per_page=300";
     NSURL *url = [NSURL URLWithString:urlString];
     [[NSURLSession.sharedSession dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSLog(@"Usernames fetching finished.");
@@ -92,7 +75,7 @@
         
         NSMutableArray<User *> *usernames = NSMutableArray.new;
         for (NSDictionary *usersDictionary in usersJSON) {
-            NSString *name = usersDictionary[@"items:login"];
+            NSString *name = usersDictionary[@"login"];
             NSURL *avatar =[NSURL URLWithString:[usersDictionary objectForKey:@"avatar_url"]];
             User *username = User.new;
             username.name = name;
@@ -120,7 +103,10 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] init];
     }
-    cell.textLabel.text = [self.displayedItems objectAtIndex:anIndexPath.row];
+    
+    cell.textLabel.text = [self.filteredItems objectAtIndex:anIndexPath.row];
+    
+    
     return cell;
 }
 
@@ -130,14 +116,18 @@
     
     NSString *searchString = aSearchController.searchBar.text;
     NSLog(@"searchString=%@", searchString);
-    
+    searchController.searchResultsController.view.hidden = false;
     // Check if the user cancelled or deleted the search term so we can display the full list instead.
-    if (![searchString isEqualToString:@""]) {
+    if (![searchString isEqualToString:@" "]) {
         [self.filteredItems removeAllObjects];
-        for (NSString *str in self.usernames) {
-            if ([searchString isEqualToString:@""] || [str localizedCaseInsensitiveContainsString:searchString] == YES) {
+        for (User *usr in self.usernames) {
+        NSString *str = usr.name;
+        //for (NSString *str in self.usernames) {
+            if ([searchString isEqualToString:@" "] || [str localizedCaseInsensitiveContainsString:searchString] == YES) {
                 NSLog(@"str=%@", str);
                 [self.filteredItems addObject:str];
+            } else {
+                nil;
             }
         }
         self.displayedItems = self.filteredItems;
@@ -145,7 +135,19 @@
     else {
         self.displayedItems = self.usernames;
     }
-    [self.tableView reloadData];
+   [self.tableView reloadData];
+}
+
+- (void)willPresentSearchController:(UISearchController *)searchController
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        searchController.searchResultsController.view.hidden = NO;
+    });
+}
+
+- (void)didPresentSearchController:(UISearchController *)searchController
+{
+    searchController.searchResultsController.view.hidden = NO;
 }
 
 

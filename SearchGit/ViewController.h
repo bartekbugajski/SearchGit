@@ -15,8 +15,8 @@
 @property (nonatomic, strong) UISearchController * searchController;
 @property (nonatomic, strong) NSMutableArray * allItems;
 @property (nonatomic, strong) NSMutableArray * filteredItems;
-@property (nonatomic, weak) NSArray * displayedItems;
-@property (nonatomic) NSMutableArray<User *> *usernames;
+@property (nonatomic, strong) NSArray * displayedItems;
+@property (nonatomic, strong) NSMutableArray<User *> *usernames;
 
 @end
 
